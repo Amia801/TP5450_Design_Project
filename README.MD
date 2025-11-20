@@ -103,7 +103,6 @@ Students must design the **TPS5450 feedback network** so that the measured outpu
 - Altium **libraries** (symbols & footprints) including TPS5450  
 - Main board `.PcbDoc` with:
   - Board size  
-  - Layer stack / copper thickness  
   - Basic design rules  
 - Test kit `.PcbDoc`:
   - Helper PCB used for:
@@ -240,3 +239,4 @@ See the [`LICENSE`](./LICENSE) file for full details.
 If you have questions, suggestions, or improvements, feel free to open an **issue** or submit a **pull request**.
 
 ---
+
