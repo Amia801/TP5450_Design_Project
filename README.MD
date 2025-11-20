@@ -20,19 +20,20 @@ Others are **welcome to use, modify, and adapt** this project under the terms of
 Typical contents of this repository include:
 
 - `altium/`  
-  - `TPS5450-Template/` – Altium project template  
-    - `libs/` – Altium libraries (symbols & footprints)
-        - *.SchLib* – Schematic library including TPS5450 symbol
-        - *.PcbLib* – PCB footprint library including TPS5450 footprint
-    - `TPS5450-Template.PrjPcb` – Altium project file
-    - `sch.SchDoc` – Schematic document
+  - `TPS5450-Template/` – Altium project template for the main converter board  
+    - `TPS5450-Template.PrjPcb` – Altium project file  
+    - `sch.SchDoc` – Schematic document (starting template)  
     - `pcb.PcbDoc` – PCB document with board outline and design rules
-  - `TPS5450-TEST/` 
-    - `TPS5450-TEST.PrjPcb` – Altium project file for test kit PCB
-    - `sch.SchDoc` – Schematic document for test kit 
+  - `TPS5450-TEST/` – Altium project for the test kit PCB  
+    - `TPS5450-TEST.PrjPcb` – Altium project file for test kit PCB  
+    - `sch.SchDoc` – Schematic document for test kit  
     - `pcb.PcbDoc` – PCB document for test kit
 - `LICENSE` – MIT License  
 - `README.md` – This file
+
+> **Important:** Component libraries (symbols & footprints) are **not provided**.  
+> Trainees are expected to **create or import** their own TPS5450 symbol/footprint and other components using datasheets or existing libraries.  
+> hint : altium library loader is a useful tool for this purpose.
 
 ---
 
@@ -44,10 +45,14 @@ The main learning objectives are:
 
 - Understand the operation of a **non-synchronous buck converter**  
 - Learn basic **TPS5450** application and feedback network design  
-- Practice **Altium schematic and PCB design**  
+- Practice **Altium schematic and PCB design** (including creating libraries)  
 - Experience the complete hardware flow:  
   **design → fabrication → assembly → testing**  
 - Gain confidence working with real **power electronics hardware**
+
+> On the main board template, **one 2-pin 2.54 mm header and three 3-pin 2.54 mm headers** are **already placed**.  
+> These headers are used to interface with the **test kit PCB**.  
+> **Do not move or rotate these connector footprints**, otherwise the boards will no longer mate mechanically/electrically as intended.
 
 ---
 
@@ -68,7 +73,7 @@ Examples:
 
 ### Special case (A = 0)
 
-If the first of the last three digits is `0`, ignore this leading zero:
+If the first of the last three digits is `0`, ignore this leading zero and fix the last digit to 5:
 
 - Target output voltage: **B.C5 V**
 
@@ -79,13 +84,10 @@ Examples:
 
 ### Allowed tolerance
 
-In general, a **±2.5% error** from the assigned target output voltage is acceptable under the specified test conditions.
+In general, a **±2.5% error** from the assigned target output voltage is acceptable under the specified test conditions.  
 Since it is impossible to achieve exact voltages due to standard resistor values, the acceptable output voltage range can be calculated as:
 
-Example:
-
-- Target = 5.00 V  
-- Acceptable range ≈ **4.88 V – 5.13 V**
+- Example: Target = 5.00 V → acceptable range ≈ **4.88 V – 5.13 V**
 
 Students must design the **TPS5450 feedback network** so that the measured output voltage stays within this tolerance.
 
@@ -99,26 +101,32 @@ Students must design the **TPS5450 feedback network** so that the measured outpu
 
 ### Provided in This Project
 
-- Altium **starter project/template**  
-- Altium **libraries** (symbols & footprints) including TPS5450  
+- Altium **starter project/template** for the TPS5450 buck converter  
 - Main board `.PcbDoc` with:
   - Board size  
   - Basic design rules  
+  - Pre-placed connector footprints:
+    - **one 2-pin 2.54 mm header**
+    - **three 3-pin 2.54 mm headers**  
+    used to plug into the test kit PCB (positions must not be changed)
 - Test kit `.PcbDoc`:
   - Helper PCB used for:
     - Power input / output connections  
     - Load connections  
-    - Convenient test points for oscilloscope probes and multimeter leads
+    - Convenient test points for oscilloscope probes and multimeter leads  
+
+> Component libraries (TPS5450 and other parts) are **intentionally not included**.  
+> Creating or importing symbols and footprints is part of the training.
 
 ### Recommended Self-Study
 
 To understand what you are designing, you are encouraged to review **non-synchronous buck converters**:
 
 - YouTube: *“Non-synchronous DC-DC Buck Converter Basics”*  
-  https://www.youtube.com/watch?v=rfChSvb8FX0
+  https://www.youtube.com/watch?v=rfChSvb8FX0  
 
 - Texas Instruments: *“TPS5450 Datasheet”*  
-  https://www.ti.com/lit/ds/symlink/tps5450.pdf
+  https://www.ti.com/lit/ds/symlink/tps5450.pdf  
 
 ---
 
@@ -129,18 +137,21 @@ This is the intended student workflow when using this project as a training exer
 1. **Design**
    - Clone or download this repository.
    - Open the provided **Altium project template**.
+   - Create or import the **TPS5450** symbol and footprint (and other required components) using datasheets or existing libraries.
    - Implement the schematic for a TPS5450-based buck converter.
    - Set the feedback network according to your **assigned output voltage**.
-   - Complete the **PCB layout** following the constraints and good layout practice for switching regulators.
+   - Complete the **PCB layout** following the constraints and good layout practice for switching regulators.  
+   - **Do not change the position of the pre-placed 2-pin and 3-pin 2.54 mm headers**, as they must align with the test kit PCB.
 
 2. **PCB Fabrication**
-   - Generate **Gerber / production files** in Altium.
+   - Generate **Gerber / production files** in Altium. Reference : https://jlcpcb.com/help/article/How-to-export-Altium-PCB-to-gerber-files
    - Order PCBs from a manufacturer **on your own** (according to course or team guidelines).
    - Use the board parameters defined in the provided `.PcbDoc` unless told otherwise.
 
 3. **Components**
    - Prepare a **BOM (Bill of Materials)**.
    - Purchase TPS5450 and all required passive components & connectors **yourself**.
+   suggect suppliers : lcsc, mouser or [youxin-electronic.taobao.com](https://youxin-electronic.taobao.com/), if you know how to use taobao.
 
 4. **Assembly**
    - Solder components onto your PCB.
@@ -151,7 +162,7 @@ This is the intended student workflow when using this project as a training exer
    - Check for shorts between **VIN, VOUT, GND** before powering up.
    - Power up using a **bench power supply** with current limit.
    - Measure:
-     - Output voltage and compare with your assigned target (±5%).
+     - Output voltage and compare with your assigned target (±2.5%).  
      - Basic load performance (under specified loads).
    - If available, use an **oscilloscope** to:
      - Observe the SW node waveform.
@@ -185,7 +196,10 @@ Since each resistor is rated at 10 W and used at around 5 W in this example, the
 Additional features:
 
 - Indicator LEDs near each channel show which load channels are currently enabled.
-- Connectors (JP1–JP4) and the large **VIN / GND / VOUT** pads make it easy to:
+- Matching 2.54 mm headers on the test kit and main board allow the two PCBs to **plug together directly**, so that:
+  - Power and load connections are clean and repeatable  
+  - Students can focus on measurement instead of wiring  
+- Large **VIN / GND / VOUT** pads make it easy to:
   - Connect a bench power supply and your TPS5450 board
   - Attach crocodile clips
   - Probe the circuit with an oscilloscope or multimeter without stressing the main PCB
@@ -231,12 +245,11 @@ See the [`LICENSE`](./LICENSE) file for full details.
 
 - **HKU ROBOCON TEAM** – Original author and maintainer of this training project.  
 - The teaching staff and mentors who contributed to:
-  - Circuit design
-  - PCB layout
-  - Test procedures
-  - Documentation
+  - Circuit design  
+  - PCB layout  
+  - Test procedures  
+  - Documentation  
 
 If you have questions, suggestions, or improvements, feel free to open an **issue** or submit a **pull request**.
 
 ---
-
