@@ -33,7 +33,7 @@ Typical contents of this repository include:
 
 > **Important:** Component libraries (symbols & footprints) are **not provided**.  
 > Trainees are expected to **create or import** their own TPS5450 symbol/footprint and other components using datasheets or existing libraries.  
-> hint : altium library loader is a useful tool for this purpose.
+> hint : altium library loader is a useful tool for this purpose. see https://www.samacsys.com/altium-designer-library-instructions/
 
 ---
 
@@ -253,3 +253,4 @@ See the [`LICENSE`](./LICENSE) file for full details.
 If you have questions, suggestions, or improvements, feel free to open an **issue** or submit a **pull request**.
 
 ---
+
